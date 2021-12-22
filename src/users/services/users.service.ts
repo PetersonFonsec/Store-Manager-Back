@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../interfaces/usuarios';
@@ -7,25 +11,41 @@ import { User } from '../interfaces/usuarios';
 export class UsersService {
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
-  async createUser(user: User): Promise<User> {
+  async validEmail(email: string): Promise<void> {}
+
+  async createUser(user: User): Promise<any> {
+    const { email } = user;
+    const userExist = await this.userModel.findOne({ email }).exec();
+
+    if (userExist) {
+      throw new BadRequestException(
+        `there is already a user with this email: ${email}`,
+      );
+    }
     return await new this.userModel(user).save();
   }
 
-  async findUser(email: string): Promise<User> {
-    return this.userModel.findOne({ email }).exec();
+  async findUser(id: string): Promise<User> {
+    const user = await this.userModel.findById(id).exec();
+    if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
+    return user;
   }
 
   async getAllUser(): Promise<User[]> {
-    return this.userModel.find().exec();
+    return await this.userModel.find().exec();
   }
 
-  async updateUser(email: string, user: User): Promise<User> {
-    return await this.userModel
-      .findOneAndUpdate({ email }, { $set: user })
+  async updateUser(id: string, fields: User): Promise<User> {
+    const user = await this.userModel
+      .findByIdAndUpdate(id, { $set: fields })
       .exec();
+    if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
+    return user;
   }
 
-  async deleteUser(email: string): Promise<User> {
-    return await this.userModel.findOneAndDelete({ email }).exec();
+  async deleteUser(id: string): Promise<User> {
+    const user = await this.userModel.findByIdAndDelete(id).exec();
+    if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
+    return user;
   }
 }
