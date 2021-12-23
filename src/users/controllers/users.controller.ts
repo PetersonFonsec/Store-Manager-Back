@@ -6,7 +6,6 @@ import {
   Param,
   Post,
   Put,
-  Query,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -20,23 +19,28 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Get('/:id')
-  buscarUsuario(@Param('id') id: string): Promise<User | User[]> {
-    return id ? this.userService.findUser(id) : this.userService.getAllUser();
+  getUser(@Param('id') id: string): Promise<User> {
+    return this.userService.findUser(id);
+  }
+
+  @Get()
+  getAllUser(): Promise<User[]> {
+    return this.userService.getAllUser();
   }
 
   @Post()
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
-  criarUsuario(@Body() user: User): Promise<User> {
+  createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
   }
 
   @Put('/:id')
-  atualizaUsuario(@Param('id') id: string, @Body() user: User): Promise<User> {
+  updateUser(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUser(id, user);
   }
 
   @Delete('/:id')
-  deletaUsuario(@Param('id') id: string): Promise<User> {
+  deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
   }
 }

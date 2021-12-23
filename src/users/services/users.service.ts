@@ -11,8 +11,6 @@ import { User } from '../interfaces/usuarios';
 export class UsersService {
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
-  async validEmail(email: string): Promise<void> {}
-
   async createUser(user: User): Promise<any> {
     const { email } = user;
     const userExist = await this.userModel.findOne({ email }).exec();
@@ -26,9 +24,14 @@ export class UsersService {
   }
 
   async findUser(id: string): Promise<User> {
-    const user = await this.userModel.findById(id).exec();
-    if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
-    return user;
+    try {
+      const user = await this.userModel.findById(id).exec();
+      if (!user)
+        throw new NotFoundException(`Not found the user with id: ${id}`);
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`Not found the user with id: ${id}`);
+    }
   }
 
   async getAllUser(): Promise<User[]> {
@@ -44,8 +47,13 @@ export class UsersService {
   }
 
   async deleteUser(id: string): Promise<User> {
-    const user = await this.userModel.findByIdAndDelete(id).exec();
-    if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
-    return user;
+    try {
+      const user = await this.userModel.findByIdAndDelete(id).exec();
+      if (!user)
+        throw new NotFoundException(`Not found the user with id: ${id}`);
+      return user;
+    } catch (error) {
+      throw new NotFoundException(`Not found the user with id: ${id}`);
+    }
   }
 }
