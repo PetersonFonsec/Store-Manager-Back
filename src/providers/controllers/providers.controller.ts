@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { ProvidersService } from '../services/providers.service';
 import { Provider } from '../interfaces/provider';
-import { CelphoneValidationPipe } from 'src/providres/pipes/celphone-validation.pipe';
+import { CelphoneValidationPipe } from 'src/providers/pipes/celphone-validation.pipe';
 
 @Controller('providers')
 export class ProvidersController {

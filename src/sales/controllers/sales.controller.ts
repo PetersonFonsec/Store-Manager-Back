@@ -3,9 +3,9 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   Put,
-  Query,
 } from '@nestjs/common';
 import { Sale } from '../interfaces/sale';
 import { SalesService } from '../services/sales.service';
@@ -14,9 +14,14 @@ import { SalesService } from '../services/sales.service';
 export class SalesController {
   constructor(private saleService: SalesService) {}
 
+  @Get('/:id')
+  getSales(@Param('id') id: string): Promise<Sale | Sale[]> {
+    return this.saleService.findSale(id);
+  }
+
   @Get()
-  getSales(@Query() id: string): Promise<Sale | Sale[]> {
-    return id ? this.saleService.findSale(id) : this.saleService.getAllSale();
+  getAllSales(): Promise<Sale | Sale[]> {
+    return this.saleService.getAllSale();
   }
 
   @Post()
@@ -24,13 +29,13 @@ export class SalesController {
     return this.saleService.createSale(sale);
   }
 
-  @Put()
-  updateSale(@Query() id: string, @Body() sale: Sale): Promise<Sale> {
+  @Put('/:id')
+  updateSale(@Param('id') id: string, @Body() sale: Sale): Promise<Sale> {
     return this.saleService.updateSale(id, sale);
   }
 
-  @Delete()
-  delateSale(@Query() id: string): Promise<Sale> {
+  @Delete('/:id')
+  delateSale(@Param('id') id: string): Promise<Sale> {
     return this.saleService.deleteSale(id);
   }
 }
