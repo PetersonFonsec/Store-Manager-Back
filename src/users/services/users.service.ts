@@ -6,20 +6,23 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../interfaces/usuarios';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
   async createUser(user: User): Promise<any> {
-    const { email } = user;
+    const { email, password } = user;
     const userExist = await this.userModel.findOne({ email }).exec();
+
+    user.password = bcrypt.hashSync(password, 8);
 
     if (userExist) {
       throw new BadRequestException(
         `there is already a user with this email: ${email}`,
       );
     }
+
     return await new this.userModel(user).save();
   }
 
