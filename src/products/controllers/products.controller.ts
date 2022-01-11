@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -14,11 +15,14 @@ import { ProductsService } from '../services/products.service';
 export class ProductsController {
   constructor(private productService: ProductsService) {}
 
+  @Get('/:id')
+  findProduct(@Param('id') id: string): Promise<Product> {
+    return this.productService.findProduct(id);
+  }
+
   @Get()
-  get(@Query('id') id: string): Promise<Product | Product[]> {
-    return id
-      ? this.productService.getAllProducts()
-      : this.productService.findProduct(id);
+  getAllProducts(): Promise<Product[]> {
+    return this.productService.getAllProducts();
   }
 
   @Post()
@@ -26,13 +30,13 @@ export class ProductsController {
     return this.productService.createProduct(product);
   }
 
-  @Put()
-  update(@Query('id') id: string, @Body() product: Product): Promise<Product> {
+  @Put('/:id')
+  update(@Param('id') id: string, @Body() product: Product): Promise<Product> {
     return this.productService.updateProduct(id, product);
   }
 
-  @Delete()
-  delete(@Query('id') id: string): Promise<Product> {
+  @Delete('/:id')
+  delete(@Param('id') id: string): Promise<Product> {
     return this.productService.deleteProduct(id);
   }
 }

@@ -16,7 +16,6 @@ export class ProvidersService {
   async createProvider(provider: Provider): Promise<Provider> {
     const { email, celphone } = provider;
     const emailExist = await this.providersModel.findOne({ email });
-    const celphoneExist = await this.providersModel.findOne({ celphone });
 
     if (emailExist) {
       throw new BadRequestException(
@@ -24,6 +23,7 @@ export class ProvidersService {
       );
     }
 
+    const celphoneExist = await this.providersModel.findOne({ celphone });
     if (celphoneExist) {
       throw new BadRequestException(
         `there is already a provider with this celphone: ${celphone}`,

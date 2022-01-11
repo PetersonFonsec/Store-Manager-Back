@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Product } from '../interfaces/products';
@@ -8,11 +12,30 @@ export class ProductsService {
   constructor(@InjectModel('Products') private productModel: Model<Product>) {}
 
   async createProduct(product: Product): Promise<Product> {
+    const { name } = product;
+    const result = await this.productModel.findOne({ name }).exec();
+
+    if (result) {
+      throw new BadRequestException(
+        `there is already a product with this name: ${name}`,
+      );
+    }
+
     return await new this.productModel(product).save();
   }
 
   async findProduct(id: string): Promise<Product> {
-    return await this.productModel.findById(id).exec();
+    try {
+      const product = await this.productModel.findById(id).exec();
+
+      if (!product) {
+        throw new NotFoundException(`Not found product with id: ${id}`);
+      }
+
+      return product;
+    } catch (error) {
+      throw new NotFoundException(`Not found product with id: ${id}`);
+    }
   }
 
   async getAllProducts(): Promise<Product[]> {
@@ -20,12 +43,34 @@ export class ProductsService {
   }
 
   async updateProduct(id: string, product: Product): Promise<Product> {
-    return await this.productModel
-      .findByIdAndUpdate(id, { $set: product })
-      .exec();
+    try {
+      const productUpdated = await this.productModel
+        .findByIdAndUpdate(id, { $set: product })
+        .exec();
+
+      if (!productUpdated) {
+        throw new NotFoundException(`Not found product with id: ${id}`);
+      }
+
+      return productUpdated;
+    } catch (error) {
+      throw new NotFoundException(`Not found product with id: ${id}`);
+    }
   }
 
   async deleteProduct(id: string): Promise<Product> {
-    return await this.productModel.findByIdAndRemove(id).exec();
+    try {
+      const productRemoved = await this.productModel
+        .findByIdAndRemove(id)
+        .exec();
+
+      if (!productRemoved) {
+        throw new NotFoundException(`Not found product with id: ${id}`);
+      }
+
+      return productRemoved;
+    } catch (error) {
+      throw new NotFoundException(`Not found product with id: ${id}`);
+    }
   }
 }
