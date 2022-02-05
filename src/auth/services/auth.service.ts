@@ -1,11 +1,12 @@
 import {
   BadRequestException,
   Injectable,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { Schema } from 'mongoose';
+import { User } from 'src/users/interfaces/usuarios';
 import { UsersService } from 'src/users/services/users.service';
 import { LogingRequest } from '../interfaces/auth';
 
@@ -33,16 +34,24 @@ export class AuthService {
       }
 
       const { name, _id } = user;
-      return {
-        name,
-        email,
-        access_token: this.jwtService.sign({ id: _id.toString() }),
-      };
+      return this.createToken(name, email, _id);
     } catch (error) {
-      console.log(error);
       throw new NotFoundException(`Email or password incorrect`);
     }
   }
 
-  async generateToken(): Promise<any> {}
+  async signup(user: User): Promise<any> {
+    const newUser = await this.userService.createUser(user);
+    const { name, _id, email } = newUser;
+
+    return this.createToken(name, email, _id);
+  }
+
+  private createToken(name: string, email: string, _id: Schema.Types.ObjectId) {
+    return {
+      name,
+      email,
+      access_token: this.jwtService.sign({ id: _id.toString() }),
+    };
+  }
 }
