@@ -11,7 +11,7 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
-  async createUser(user: User): Promise<any> {
+  async createUser(user: User): Promise<User> {
     const { email, password } = user;
     const userExist = await this.userModel.findOne({ email }).exec();
 
