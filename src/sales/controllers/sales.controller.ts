@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
 import { Sale } from '../interfaces/sale';
 import { SalesService } from '../services/sales.service';
@@ -16,7 +17,12 @@ export class SalesController {
 
   @Get('/:id')
   getSales(@Param('id') id: string): Promise<Sale | Sale[]> {
-    return this.saleService.findSale(id);
+    return this.saleService.findSaleById(id);
+  }
+
+  @Get()
+  getSalesByProduct(@Query('product') id: string): Promise<Sale | Sale[]> {
+    return this.saleService.findSaleByProduct(id);
   }
 
   @Get()
