@@ -11,9 +11,8 @@ export class CelphoneValidationPipe implements PipeTransform {
   transform(value: Provider, metadata: ArgumentMetadata) {
     const { celphone } = value;
     const isSizeValid = (phone) => /\d{10,11}/.test(phone);
-    const isOnlyDigits = (phone) => !isNaN(phone);
 
-    if (!isSizeValid(celphone) || !isOnlyDigits(celphone)) {
+    if (!isSizeValid(celphone)) {
       throw new BadRequestException(
         `Celphone: ${celphone} is invalid format the correct is only digits`,
       );
