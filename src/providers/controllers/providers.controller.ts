@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -25,8 +26,10 @@ export class ProvidersController {
 
   @Get()
   // @UseGuards(JwtAuthGuard)
-  getAllProviders(): Promise<Provider[]> {
-    return this.providerService.getAllProviders();
+  findProviderByName(@Query('search') search: string): Promise<Provider[]> {
+    return search
+      ? this.providerService.findProviderByName(search)
+      : this.providerService.getAllProviders();
   }
 
   @Get('/:id')
@@ -37,8 +40,9 @@ export class ProvidersController {
 
   @Post()
   // @UseGuards(JwtAuthGuard)
-  @UsePipes(ValidationPipe, CelphoneValidationPipe)
-  @UseInterceptors(FileInterceptor('file', storage('providers_photo')))
+  // @UsePipes(ValidationPipe, CelphoneValidationPipe)
+  @UsePipes(ValidationPipe)
+  @UseInterceptors(FileInterceptor('photo', storage('providers_photo')))
   createProvider(
     @Body() provider: Provider,
     @UploadedFile() photo,

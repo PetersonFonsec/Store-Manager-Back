@@ -46,6 +46,27 @@ export class ProvidersService {
       throw new NotFoundException(`Not found provider with id: ${id}`);
     }
   }
+  async findProviderByName(search: string): Promise<Provider[]> {
+    try {
+      const provider = await this.providersModel
+        .find({
+          name: {
+            $regex: '.*' + search + '.*',
+          },
+        })
+        .exec();
+
+      if (!provider) {
+        throw new NotFoundException(
+          `Not found provider with search: ${search}`,
+        );
+      }
+
+      return provider;
+    } catch (error) {
+      throw new NotFoundException(`Not found provider with search: ${search}`);
+    }
+  }
 
   async getAllProviders(): Promise<Provider[]> {
     return await this.providersModel.find().exec();
