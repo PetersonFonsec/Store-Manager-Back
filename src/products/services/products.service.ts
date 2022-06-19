@@ -38,6 +38,26 @@ export class ProductsService {
     }
   }
 
+  async findProductByName(search: string): Promise<Product[]> {
+    try {
+      const product = await this.productModel
+        .find({
+          name: {
+            $regex: '.*' + search + '.*',
+          },
+        })
+        .exec();
+
+      if (!product) {
+        throw new NotFoundException(`Not found product with name: ${search}`);
+      }
+
+      return product;
+    } catch (error) {
+      throw new NotFoundException(`Not found product with name: ${search}`);
+    }
+  }
+
   async getAllProducts(): Promise<Product[]> {
     return await this.productModel.find().exec();
   }

@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -41,8 +42,10 @@ export class ProductsController {
 
   @Get()
   // @UseGuards(JwtAuthGuard)
-  getAllProducts(): Promise<Product[]> {
-    return this.productService.getAllProducts();
+  findProductByName(@Query('search') search: string): Promise<Product[]> {
+    return search
+      ? this.productService.findProductByName(search)
+      : this.productService.getAllProducts();
   }
 
   @Post()
