@@ -54,4 +54,9 @@ export class AuthService {
       access_token: this.jwtService.sign({ id: _id.toString() }),
     };
   }
+
+  //TODO PEGAR OS VALORES DO TOKEN PARA GERAR UM NOVO TOKEN
+  async refresh(): Promise<any> {
+    // return this.createToken()
+  }
 }

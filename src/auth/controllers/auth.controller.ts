@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Post,
   UsePipes,
   ValidationPipe,
@@ -24,5 +25,10 @@ export class AuthController {
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
   signup(@Body() user: User) {
     return this.authService.signup(user);
+  }
+
+  @Get('/refresh')
+  refresh() {
+    return this.authService.refresh();
   }
 }

@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+
+import { join } from 'path';
+
 import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { AppController } from './app.controller';
 import { UsersModule } from './users/users.module';
+import { SalesModule } from './sales/sales.module';
 import { ProductsModule } from './products/products.module';
 import { ProvidersModule } from './providers/providers.module';
-import { SalesModule } from './sales/sales.module';
-import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
@@ -18,6 +22,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
     SalesModule,
     AuthModule,
     DashboardModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],

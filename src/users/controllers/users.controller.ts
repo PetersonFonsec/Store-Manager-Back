@@ -21,32 +21,32 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getUser(@Param('id') id: string): Promise<User> {
     return this.userService.findUser(id);
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getAllUser(): Promise<User[]> {
     return this.userService.getAllUser();
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
   createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
   }
 
   @Put('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   updateUser(@Param('id') id: string, @Body() user: User): Promise<User> {
     return this.userService.updateUser(id, user);
   }
 
   @Delete('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
   }
