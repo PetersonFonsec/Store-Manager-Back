@@ -8,8 +8,8 @@ export class DashboardController {
   constructor(private dashboardService: DashboardService) {}
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getDashboardData(): any {
-    // return this.dashboardService
+    return this.dashboardService.getDashboard();
   }
 }

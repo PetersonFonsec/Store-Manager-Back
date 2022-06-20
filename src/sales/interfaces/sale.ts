@@ -12,7 +12,7 @@ export class CreateSaleResponse {
   product: string;
   quantity: number;
 }
-export class FindSaleByProduct {
+export class Salle {
   product: Product;
   quantity: number;
   price: number;

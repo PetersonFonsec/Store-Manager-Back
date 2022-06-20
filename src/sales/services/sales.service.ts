@@ -81,7 +81,7 @@ export class SalesService {
   }
 
   async getAllSale(): Promise<Sale[]> {
-    return await this.saleModel.find().exec();
+    return await this.saleModel.find().populate('product').exec();
   }
 
   async deleteSale(id: string): Promise<Sale> {

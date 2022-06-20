@@ -10,5 +10,6 @@ import { ProvidersService } from './services/providers.service';
   imports: [
     MongooseModule.forFeature([{ name: 'Providers', schema: providerSchema }]),
   ],
+  exports: [ProvidersService],
 })
 export class ProvidersModule {}

@@ -13,5 +13,6 @@ import { SalesService } from './services/sales.service';
     MongooseModule.forFeature([{ name: 'Sales', schema: SaleSchema }]),
     ProductsModule,
   ],
+  exports: [SalesService],
 })
 export class SalesModule {}

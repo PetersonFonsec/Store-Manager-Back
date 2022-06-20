@@ -10,4 +10,5 @@ export class Product {
   description: string;
   @IsNotEmpty()
   photo: string;
+  id: string;
 }
