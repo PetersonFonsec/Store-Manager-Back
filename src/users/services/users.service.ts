@@ -9,6 +9,8 @@ import { User } from '../interfaces/usuarios';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
+  private readonly staticAssetsPath = '/images';
+
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
   async createUser(user: User): Promise<User> {
@@ -31,6 +33,7 @@ export class UsersService {
       const user = await this.userModel.findById(id).exec();
       if (!user)
         throw new NotFoundException(`Not found the user with id: ${id}`);
+      user.photo = `${this.staticAssetsPath}/${user.photo}`;
       return user;
     } catch (error) {
       throw new NotFoundException(`Not found the user with id: ${id}`);
@@ -42,6 +45,7 @@ export class UsersService {
       const user = await this.userModel.findOne({ email }).exec();
       if (!user)
         throw new NotFoundException(`Not found the user with email: ${email}`);
+      user.photo = `${this.staticAssetsPath}/${user.photo}`;
       return user;
     } catch (error) {
       throw new NotFoundException(`Not found the user with email: ${email}`);
@@ -57,6 +61,7 @@ export class UsersService {
       .findByIdAndUpdate(id, { $set: fields })
       .exec();
     if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
+    user.photo = `${this.staticAssetsPath}/${user.photo}`;
     return user;
   }
 

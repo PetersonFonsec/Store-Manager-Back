@@ -6,18 +6,25 @@ import {
   Param,
   Post,
   Put,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { storage } from 'src/utils/storage';
 import { User } from '../interfaces/usuarios';
 import { ConfirmPasswordPipe } from '../pipes/confirm-password/confirm-password.pipe';
 import { PasswordValidationPipe } from '../pipes/password-validation/password-validation.pipe';
 import { UsersService } from '../services/users.service';
+import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
+  private readonly imageDefault = 'userDefault.png';
+
   constructor(private userService: UsersService) {}
 
   @Get('/:id')
@@ -35,7 +42,9 @@ export class UsersController {
   @Post()
   // @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
-  createUser(@Body() user: User): Promise<User> {
+  @UseInterceptors(FileInterceptor('photo', storage('users_photo')))
+  createUser(@Body() user: User, @UploadedFile() photo): Promise<User> {
+    user.photo = photo?.filename || this.imageDefault;
     return this.userService.createUser(user);
   }
 
