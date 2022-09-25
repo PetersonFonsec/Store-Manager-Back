@@ -9,6 +9,8 @@ import { Product } from '../interfaces/products';
 
 @Injectable()
 export class ProductsService {
+  private readonly staticAssetsPath = '/images';
+
   constructor(@InjectModel('Products') private productModel: Model<Product>) {}
 
   async createProduct(product: Product): Promise<Product> {
@@ -31,7 +33,7 @@ export class ProductsService {
       if (!product) {
         throw new NotFoundException(`Not found product with id: ${id}`);
       }
-
+      product.photo = `${this.staticAssetsPath}/${product.photo}`;
       return product;
     } catch (error) {
       throw new NotFoundException(`Not found product with id: ${id}`);
@@ -40,7 +42,7 @@ export class ProductsService {
 
   async findProductByName(search: string): Promise<Product[]> {
     try {
-      const product = await this.productModel
+      let products = await this.productModel
         .find({
           name: {
             $regex: '.*' + search + '.*',
@@ -48,11 +50,17 @@ export class ProductsService {
         })
         .exec();
 
-      if (!product) {
+      if (!products) {
         throw new NotFoundException(`Not found product with name: ${search}`);
       }
 
-      return product;
+      products = products.map((product) => {
+        return Object.assign(product, {
+          photo: `${this.staticAssetsPath}/${product.photo}`,
+        });
+      });
+
+      return products;
     } catch (error) {
       throw new NotFoundException(`Not found product with name: ${search}`);
     }
@@ -72,6 +80,7 @@ export class ProductsService {
         throw new NotFoundException(`Not found product with id: ${id}`);
       }
 
+      productUpdated.photo = `${this.staticAssetsPath}/${product.photo}`;
       return productUpdated;
     } catch (error) {
       throw new NotFoundException(`Not found product with id: ${id}`);

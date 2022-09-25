@@ -14,24 +14,13 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { Observable, of } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { storage } from 'src/utils/storage';
 import { Product } from '../interfaces/products';
 import { ProductsService } from '../services/products.service';
-import { v4 as uuidv4 } from 'uuid';
-const path = require('path');
-
-export const storage = (destination) => ({
-  storage: diskStorage({
-    destination: `./uploads/${destination}`,
-    filename: (req, file, cb) => {
-      const filename =
-        path.parse(file.originalname).name.replace(/\s/g, '') + uuidv4();
-      const extension = path.parse(file.originalname).ext;
-      cb(null, `${filename}${extension}`);
-    },
-  }),
-});
 @Controller('products')
 export class ProductsController {
+  private readonly imageDefault = '';
+
   constructor(private productService: ProductsService) {}
 
   @Get('/:id')
@@ -52,7 +41,7 @@ export class ProductsController {
   @UseInterceptors(FileInterceptor('photo', storage('products_photo')))
   // @UseGuards(JwtAuthGuard)
   create(@Body() product: Product, @UploadedFile() photo): Promise<Product> {
-    product.photo = photo.filename;
+    product.photo = photo?.filename || this.imageDefault;
     return this.productService.createProduct(product);
   }
 
