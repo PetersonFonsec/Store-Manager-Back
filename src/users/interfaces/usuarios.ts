@@ -10,4 +10,5 @@ export class User {
   password: string;
   @IsNotEmpty()
   confirm_password: string;
+  photo: string;
 }
