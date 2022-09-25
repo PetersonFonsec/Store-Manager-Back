@@ -23,7 +23,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     AuthModule,
     DashboardModule,
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'uploads'),
+      rootPath: join(__dirname, '..', 'assets'),
     }),
   ],
   controllers: [AppController],
