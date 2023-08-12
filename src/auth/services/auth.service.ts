@@ -33,8 +33,8 @@ export class AuthService {
         throw new NotFoundException(`Email or password incorrect`);
       }
 
-      const { name, _id } = user;
-      return this.createToken(name, email, _id);
+      const access_token = this.createToken(user._id);
+      return {user, access_token};
     } catch (error) {
       throw new NotFoundException(`Email or password incorrect`);
     }
@@ -44,15 +44,14 @@ export class AuthService {
     const newUser = await this.userService.createUser(user);
     const { name, _id, email } = newUser;
 
-    return this.createToken(name, email, _id);
+    const access_token = this.createToken(_id);
+    const userCreated = await this.userService.findUserByEmail(email);
+
+    return {user: userCreated, access_token};
   }
 
-  private createToken(name: string, email: string, _id: Schema.Types.ObjectId) {
-    return {
-      name,
-      email,
-      access_token: this.jwtService.sign({ id: _id.toString() }),
-    };
+  private createToken(_id: Schema.Types.ObjectId) {
+    return  this.jwtService.sign({ id: _id.toString() })
   }
 
   //TODO PEGAR OS VALORES DO TOKEN PARA GERAR UM NOVO TOKEN

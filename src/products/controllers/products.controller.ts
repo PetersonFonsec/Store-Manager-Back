@@ -19,7 +19,6 @@ import { Product } from '../interfaces/products';
 import { ProductsService } from '../services/products.service';
 @Controller('products')
 export class ProductsController {
-  private readonly imageDefault = '';
 
   constructor(private productService: ProductsService) {}
 
@@ -41,8 +40,7 @@ export class ProductsController {
   @UseInterceptors(FileInterceptor('photo', storage('products_photo')))
   // @UseGuards(JwtAuthGuard)
   create(@Body() product: Product, @UploadedFile() photo): Promise<Product> {
-    product.photo = photo?.filename || this.imageDefault;
-    return this.productService.createProduct(product);
+    return this.productService.createProduct(product, photo);
   }
 
   @Put('/:id')

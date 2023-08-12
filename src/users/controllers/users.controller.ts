@@ -23,7 +23,6 @@ import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
-  private readonly imageDefault = 'userDefault.png';
 
   constructor(private userService: UsersService) {}
 
@@ -39,12 +38,17 @@ export class UsersController {
     return this.userService.getAllUser();
   }
 
+  @Get('/email/:id')
+  // @UseGuards(JwtAuthGuard)
+  getUserByEmail(@Param('id') id: string): Promise<User> {
+    return this.userService.findUserByEmail(id);
+  }
+
   @Post()
   // @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
   @UseInterceptors(FileInterceptor('photo', storage('users_photo')))
   createUser(@Body() user: User, @UploadedFile() photo): Promise<User> {
-    user.photo = photo?.filename || this.imageDefault;
     return this.userService.createUser(user);
   }
 

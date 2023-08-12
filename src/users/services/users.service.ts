@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
   private readonly staticAssetsPath = '/images';
+  private readonly imageDefault = 'userDefault.png';
 
   constructor(@InjectModel('Users') private userModel: Model<User>) {}
 
@@ -17,6 +18,7 @@ export class UsersService {
     const { email, password } = user;
     const userExist = await this.userModel.findOne({ email }).exec();
 
+    user.photo = this.imageDefault;
     user.password = bcrypt.hashSync(password, 8);
 
     if (userExist) {

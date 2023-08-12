@@ -9,12 +9,14 @@ import { Product } from '../interfaces/products';
 
 @Injectable()
 export class ProductsService {
-  private readonly staticAssetsPath = '/images';
+  private readonly staticAssetsPath = '/uploads/products_photo';
+  private readonly imageDefault = 'imageNotFound.jpeg';
 
   constructor(@InjectModel('Products') private productModel: Model<Product>) {}
 
-  async createProduct(product: Product): Promise<Product> {
+  async createProduct(product: Product, photo: any): Promise<Product> {
     const { name } = product;
+    product.photo = photo?.filename || this.imageDefault;
     const result = await this.productModel.findOne({ name }).exec();
 
     if (result) {
@@ -54,11 +56,7 @@ export class ProductsService {
         throw new NotFoundException(`Not found product with name: ${search}`);
       }
 
-      products = products.map((product) => {
-        return Object.assign(product, {
-          photo: `${this.staticAssetsPath}/${product.photo}`,
-        });
-      });
+      products = products.map((product) => this.setImageLinkInProduct(product));
 
       return products;
     } catch (error) {
@@ -67,7 +65,8 @@ export class ProductsService {
   }
 
   async getAllProducts(): Promise<Product[]> {
-    return await this.productModel.find().exec();
+    const products =  await this.productModel.find().exec();
+    return products.map((product) => this.setImageLinkInProduct(product));
   }
 
   async updateProduct(id: string, product: Product): Promise<Product> {
@@ -101,5 +100,11 @@ export class ProductsService {
     } catch (error) {
       throw new NotFoundException(`Not found product with id: ${id}`);
     }
+  }
+
+  private setImageLinkInProduct(product) {
+    return Object.assign(product, {
+      photo: `${this.staticAssetsPath}/${product.photo}`,
+    });
   }
 }
