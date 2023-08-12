@@ -2,6 +2,7 @@
 /dist
 /uploads
 /node_modules
+/assets/uploads
 
 # Logs
 logs
