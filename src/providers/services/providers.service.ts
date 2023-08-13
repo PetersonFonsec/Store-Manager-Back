@@ -9,11 +9,14 @@ import { Provider } from '../interfaces/provider';
 
 @Injectable()
 export class ProvidersService {
+  private readonly staticAssetsPath = '/uploads/providers_photo';
+  private readonly imageDefault = 'imageNotFound.jpeg';
+
   constructor(
     @InjectModel('Providers') private providersModel: Model<Provider>,
   ) {}
 
-  async createProvider(provider: Provider): Promise<Provider> {
+  async createProvider(provider: Provider, photo: any): Promise<Provider> {
     const { email, celphone } = provider;
     const emailExist = await this.providersModel.findOne({ email });
 
@@ -30,6 +33,8 @@ export class ProvidersService {
       );
     }
 
+    provider.photo = photo?.filename || this.imageDefault;
+
     return await new this.providersModel(provider).save();
   }
 
@@ -41,6 +46,7 @@ export class ProvidersService {
         throw new NotFoundException(`Not found provider with id: ${id}`);
       }
 
+      provider.photo = `${this.staticAssetsPath}/${provider.photo}`;
       return provider;
     } catch (error) {
       throw new NotFoundException(`Not found provider with id: ${id}`);
@@ -48,7 +54,7 @@ export class ProvidersService {
   }
   async findProviderByName(search: string): Promise<Provider[]> {
     try {
-      const provider = await this.providersModel
+      const providers = await this.providersModel
         .find({
           name: {
             $regex: '.*' + search + '.*',
@@ -56,20 +62,21 @@ export class ProvidersService {
         })
         .exec();
 
-      if (!provider) {
+      if (!providers) {
         throw new NotFoundException(
           `Not found provider with search: ${search}`,
         );
       }
 
-      return provider;
+      return providers.map((provider) => this.setImageLinkInProduct(provider));
     } catch (error) {
       throw new NotFoundException(`Not found provider with search: ${search}`);
     }
   }
 
   async getAllProviders(): Promise<Provider[]> {
-    return await this.providersModel.find().exec();
+    const providers =  await this.providersModel.find().exec();
+    return providers.map((provider) => this.setImageLinkInProduct(provider));
   }
 
   async updateProvider(id: string, provider: Provider): Promise<Provider> {
@@ -93,11 +100,18 @@ export class ProvidersService {
       const providerRemoved = await this.providersModel
         .findByIdAndRemove(id)
         .exec();
+
       if (!providerRemoved)
         throw new NotFoundException(`Not found provider with id: ${id}`);
       return providerRemoved;
     } catch (error) {
       throw new NotFoundException(`Not found provider with id: ${id}`);
     }
+  }
+
+  public setImageLinkInProduct(product) {
+    return Object.assign(product, {
+      photo: `${this.staticAssetsPath}/${product.photo}`,
+    });
   }
 }

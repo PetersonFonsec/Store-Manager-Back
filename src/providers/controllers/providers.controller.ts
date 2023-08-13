@@ -47,8 +47,7 @@ export class ProvidersController {
     @Body() provider: Provider,
     @UploadedFile() photo,
   ): Promise<Provider> {
-    provider.photo = photo?.filename || '';
-    return this.providerService.createProvider(provider);
+    return this.providerService.createProvider(provider, photo);
   }
 
   @Put('/:id')
