@@ -26,13 +26,7 @@ export class SalesController {
   @Get()
   // @UseGuards(JwtAuthGuard)
   getSalesByProduct(@Query('product') id: string): Promise<Sale | Sale[]> {
-    return this.saleService.findSaleByProduct(id);
-  }
-
-  @Get()
-  // @UseGuards(JwtAuthGuard)
-  getAllSales(): Promise<Sale | Sale[]> {
-    return this.saleService.getAllSale();
+    return id ?  this.saleService.findSaleByProduct(id) :  this.saleService.getAllSale();
   }
 
   @Post()

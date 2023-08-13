@@ -1,8 +1,6 @@
 import {
   BadRequestException,
-  ConsoleLogger,
   Injectable,
-  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -45,6 +43,8 @@ export class SalesService {
         throw new NotFoundException(`Not found sale with id: ${id}`);
       }
 
+      saleUpdated.product = this.productsService.setImageLinkInProduct(saleUpdated.product);
+
       return saleUpdated;
     } catch (error) {
       throw new NotFoundException(`Not found sale with id: ${id}`);
@@ -58,6 +58,8 @@ export class SalesService {
       if (!saleUpdated) {
         throw new NotFoundException(`Not found sale with id: ${id}`);
       }
+
+      saleUpdated.product = this.productsService.setImageLinkInProduct(saleUpdated.product);
 
       return saleUpdated;
     } catch (error) {
@@ -74,6 +76,10 @@ export class SalesService {
         .populate('product')
         .exec();
 
+      if (!saleUpdated) {
+        throw new NotFoundException(`Not found sale with id: ${product_id}`);
+      }
+
       return saleUpdated;
     } catch (error) {
       throw new BadRequestException(error);
@@ -81,7 +87,12 @@ export class SalesService {
   }
 
   async getAllSale(): Promise<Sale[]> {
-    return await this.saleModel.find().populate('product').exec();
+    const salles = await this.saleModel.find().populate('product').exec();
+
+    return salles.map(sale => {
+      sale.product = this.productsService.setImageLinkInProduct(sale.product);
+      return sale;
+    })
   }
 
   async deleteSale(id: string): Promise<Sale> {

@@ -102,7 +102,7 @@ export class ProductsService {
     }
   }
 
-  private setImageLinkInProduct(product) {
+  public setImageLinkInProduct(product) {
     return Object.assign(product, {
       photo: `${this.staticAssetsPath}/${product.photo}`,
     });
