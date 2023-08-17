@@ -9,10 +9,10 @@ import { User } from '../interfaces/usuarios';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class UsersService {
-  private readonly staticAssetsPath = '/images';
+  private readonly staticAssetsPath = '/uploads/users_photo';
   private readonly imageDefault = 'userDefault.png';
 
-  constructor(@InjectModel('Users') private userModel: Model<User>) {}
+  constructor(@InjectModel('Users') private userModel: Model<User>, ) {}
 
   async createUser(user: User): Promise<User> {
     const { email, password } = user;
@@ -35,7 +35,7 @@ export class UsersService {
       const user = await this.userModel.findById(id).exec();
       if (!user)
         throw new NotFoundException(`Not found the user with id: ${id}`);
-      user.photo = `${this.staticAssetsPath}/${user.photo}`;
+      user.photo = this.findPhoto(user.photo);
       return user;
     } catch (error) {
       throw new NotFoundException(`Not found the user with id: ${id}`);
@@ -47,7 +47,7 @@ export class UsersService {
       const user = await this.userModel.findOne({ email }).exec();
       if (!user)
         throw new NotFoundException(`Not found the user with email: ${email}`);
-      user.photo = `${this.staticAssetsPath}/${user.photo}`;
+      user.photo =  this.findPhoto(user.photo);
       return user;
     } catch (error) {
       throw new NotFoundException(`Not found the user with email: ${email}`);
@@ -58,14 +58,26 @@ export class UsersService {
     return await this.userModel.find().exec();
   }
 
-  async updateUser(id: string, fields: User): Promise<User> {
+  async updateUser(id: string, fields: User, photo: any): Promise<User> {
+    fields.photo = photo?.filename || this.imageDefault;
+
     const user = await this.userModel
       .findByIdAndUpdate(id, { $set: fields })
       .exec();
     if (!user) throw new NotFoundException(`Not found the user with id: ${id}`);
-    user.photo = `${this.staticAssetsPath}/${user.photo}`;
+    user.photo = this.findPhoto(user.photo);
     return user;
   }
+
+  async updatePassword(_id: string, fields: User & {current_password: string}): Promise<User> {
+    const { password, current_password, email } = fields;
+    const user = await this.validPassword(current_password, email);
+    user.password = bcrypt.hashSync(password, 8);
+    await user.save();
+    user.photo = this.findPhoto(user.photo);
+    return user;
+  }
+
 
   async deleteUser(id: string): Promise<User> {
     try {
@@ -76,5 +88,21 @@ export class UsersService {
     } catch (error) {
       throw new NotFoundException(`Not found the user with id: ${id}`);
     }
+  }
+
+  public findPhoto(photo: string): string{
+    return photo === this.imageDefault ?  `/images/${photo}` : `${this.staticAssetsPath}/${photo}`;
+  }
+
+  public async validPassword(password, email) {
+    const user = await this.userModel.findOne({ email }).exec();
+    if (!user) throw new NotFoundException(`Email incorrect`);
+    
+    const matchPassword = await bcrypt.compare(password, user.password);
+    if (!matchPassword) {
+      throw new NotFoundException(`password incorrect`);
+    }
+
+    return user
   }
 }

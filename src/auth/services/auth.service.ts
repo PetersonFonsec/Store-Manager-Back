@@ -25,15 +25,9 @@ export class AuthService {
     }
 
     try {
-      const user = await this.userService.findUserByEmail(email);
-      if (!user) throw new NotFoundException(`Email or password incorrect`);
-
-      const matchPassword = await bcrypt.compare(password, user.password);
-      if (!matchPassword) {
-        throw new NotFoundException(`Email or password incorrect`);
-      }
-
+      const user = await this.userService.validPassword(password, email);
       const access_token = this.createToken(user._id);
+      user.photo = this.userService.findPhoto(user.photo);
       return {user, access_token};
     } catch (error) {
       throw new NotFoundException(`Email or password incorrect`);
@@ -42,7 +36,7 @@ export class AuthService {
 
   async signup(user: User): Promise<any> {
     const newUser = await this.userService.createUser(user);
-    const { name, _id, email } = newUser;
+    const { _id, email } = newUser;
 
     const access_token = this.createToken(_id);
     const userCreated = await this.userService.findUserByEmail(email);

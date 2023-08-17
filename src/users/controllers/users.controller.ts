@@ -16,10 +16,9 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { storage } from 'src/utils/storage';
 import { User } from '../interfaces/usuarios';
-import { ConfirmPasswordPipe } from '../pipes/confirm-password/confirm-password.pipe';
-import { PasswordValidationPipe } from '../pipes/password-validation/password-validation.pipe';
+import { ConfirmPasswordPipe, ConfirmUpdatePasswordPipe } from '../pipes/confirm-password/confirm-password.pipe';
+import { PasswordUpdateValidationPipe, PasswordValidationPipe } from '../pipes/password-validation/password-validation.pipe';
 import { UsersService } from '../services/users.service';
-import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -53,9 +52,17 @@ export class UsersController {
   }
 
   @Put('/:id')
+  @UseInterceptors(FileInterceptor('photo', storage('users_photo')))
   // @UseGuards(JwtAuthGuard)
-  updateUser(@Param('id') id: string, @Body() user: User): Promise<User> {
-    return this.userService.updateUser(id, user);
+  updateUser(@Param('id') id: string, @Body() user: User, @UploadedFile() photo): Promise<User> {
+    return this.userService.updateUser(id, user, photo);
+  }
+
+  @Put('/updatePassword/:id')
+  @UsePipes(ValidationPipe, PasswordUpdateValidationPipe, ConfirmUpdatePasswordPipe)
+  // @UseGuards(JwtAuthGuard)
+  updatePassword(@Param('id') id: string, @Body() user: User & {current_password: string}): any {
+    return this.userService.updatePassword(id, user);
   }
 
   @Delete('/:id')

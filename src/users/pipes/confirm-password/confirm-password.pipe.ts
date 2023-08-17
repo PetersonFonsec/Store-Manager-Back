@@ -15,3 +15,13 @@ export class ConfirmPasswordPipe implements PipeTransform {
     return user;
   }
 }
+
+@Injectable()
+export class ConfirmUpdatePasswordPipe implements PipeTransform {
+  transform(user: User, metadata: ArgumentMetadata) {
+    if(typeof user === 'string' || !user) return;
+    const { password, confirm_password } = user;
+    if (password !== confirm_password) throw new BadRequestException(`Passwords do not match`);
+    return user;
+  }
+}
