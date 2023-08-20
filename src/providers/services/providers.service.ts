@@ -46,7 +46,7 @@ export class ProvidersService {
         throw new NotFoundException(`Not found provider with id: ${id}`);
       }
 
-      provider.photo = `${this.staticAssetsPath}/${provider.photo}`;
+      provider.photo = this.findPhoto(provider.photo);
       return provider;
     } catch (error) {
       throw new NotFoundException(`Not found provider with id: ${id}`);
@@ -75,12 +75,17 @@ export class ProvidersService {
   }
 
   async getAllProviders(): Promise<Provider[]> {
-    const providers =  await this.providersModel.find().exec();
+    const providers = await this.providersModel.find().exec();
     return providers.map((provider) => this.setImageLinkInProduct(provider));
   }
 
-  async updateProvider(id: string, provider: Provider): Promise<Provider> {
+  async updateProvider(
+    id: string,
+    provider: Provider,
+    photo: any,
+  ): Promise<Provider> {
     try {
+      provider.photo = photo?.filename || this.imageDefault;
       const providerUpdated = await this.providersModel
         .findByIdAndUpdate(id, { $set: provider })
         .exec();
@@ -111,7 +116,13 @@ export class ProvidersService {
 
   public setImageLinkInProduct(product) {
     return Object.assign(product, {
-      photo: `${this.staticAssetsPath}/${product.photo}`,
+      photo: this.findPhoto(product.photo),
     });
+  }
+
+  public findPhoto(photo: string): string {
+    return photo === this.imageDefault
+      ? `/images/${photo}`
+      : `${this.staticAssetsPath}/${photo}`;
   }
 }

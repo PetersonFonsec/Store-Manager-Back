@@ -52,11 +52,13 @@ export class ProvidersController {
 
   @Put('/:id')
   // @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FileInterceptor('photo', storage('providers_photo')))
   updateProvider(
     @Param('id') id: string,
     @Body() provider: Provider,
+    @UploadedFile() photo,
   ): Promise<Provider> {
-    return this.providerService.updateProvider(id, provider);
+    return this.providerService.updateProvider(id, provider, photo);
   }
 
   @Delete('/:id')
