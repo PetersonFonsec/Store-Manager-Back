@@ -65,12 +65,17 @@ export class ProductsService {
   }
 
   async getAllProducts(): Promise<Product[]> {
-    const products =  await this.productModel.find().exec();
+    const products = await this.productModel.find().exec();
     return products.map((product) => this.setImageLinkInProduct(product));
   }
 
-  async updateProduct(id: string, product: Product): Promise<Product> {
+  async updateProduct(
+    id: string,
+    product: Product,
+    photo: any,
+  ): Promise<Product> {
     try {
+      product.photo = photo?.filename || this.imageDefault;
       const productUpdated = await this.productModel
         .findByIdAndUpdate(id, { $set: product })
         .exec();

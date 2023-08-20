@@ -19,7 +19,6 @@ import { Product } from '../interfaces/products';
 import { ProductsService } from '../services/products.service';
 @Controller('products')
 export class ProductsController {
-
   constructor(private productService: ProductsService) {}
 
   @Get('/:id')
@@ -44,9 +43,14 @@ export class ProductsController {
   }
 
   @Put('/:id')
+  @UseInterceptors(FileInterceptor('photo', storage('products_photo')))
   // @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() product: Product): Promise<Product> {
-    return this.productService.updateProduct(id, product);
+  update(
+    @Param('id') id: string,
+    @Body() product: Product,
+    @UploadedFile() photo,
+  ): Promise<Product> {
+    return this.productService.updateProduct(id, product, photo);
   }
 
   @Delete('/:id')
