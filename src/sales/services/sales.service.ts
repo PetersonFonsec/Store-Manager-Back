@@ -43,7 +43,9 @@ export class SalesService {
         throw new NotFoundException(`Not found sale with id: ${id}`);
       }
 
-      saleUpdated.product = this.productsService.setImageLinkInProduct(saleUpdated.product);
+      saleUpdated.product = this.productsService.setImageLinkInProduct(
+        saleUpdated.product,
+      );
 
       return saleUpdated;
     } catch (error) {
@@ -59,7 +61,9 @@ export class SalesService {
         throw new NotFoundException(`Not found sale with id: ${id}`);
       }
 
-      saleUpdated.product = this.productsService.setImageLinkInProduct(saleUpdated.product);
+      saleUpdated.product = this.productsService.setImageLinkInProduct(
+        saleUpdated.product,
+      );
 
       return saleUpdated;
     } catch (error) {
@@ -89,10 +93,10 @@ export class SalesService {
   async getAllSale(): Promise<Sale[]> {
     const salles = await this.saleModel.find().populate('product').exec();
 
-    return salles.map(sale => {
+    return salles.map((sale) => {
       sale.product = this.productsService.setImageLinkInProduct(sale.product);
       return sale;
-    })
+    });
   }
 
   async deleteSale(id: string): Promise<Sale> {

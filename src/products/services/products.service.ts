@@ -35,7 +35,7 @@ export class ProductsService {
       if (!product) {
         throw new NotFoundException(`Not found product with id: ${id}`);
       }
-      product.photo = `${this.staticAssetsPath}/${product.photo}`;
+      product.photo = this.setImageLinkInProduct(product);
       return product;
     } catch (error) {
       throw new NotFoundException(`Not found product with id: ${id}`);
@@ -108,8 +108,16 @@ export class ProductsService {
   }
 
   public setImageLinkInProduct(product) {
-    return Object.assign(product, {
-      photo: `${this.staticAssetsPath}/${product.photo}`,
-    });
+    const copyProduct = JSON.parse(JSON.stringify(product));
+    return {
+      ...copyProduct,
+      photo: this.findPhoto(product.photo),
+    };
+  }
+
+  public findPhoto(photo: string): string {
+    const { imageDefault, staticAssetsPath } = this;
+    const path = `${photo === imageDefault ? '/images/' : staticAssetsPath}`;
+    return `${path}/${photo}`;
   }
 }
