@@ -8,11 +8,10 @@ import {
   Put,
   Query,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { Observable, of } from 'rxjs';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { storage } from 'src/utils/storage';
 import { Product } from '../interfaces/products';
@@ -22,13 +21,13 @@ export class ProductsController {
   constructor(private productService: ProductsService) {}
 
   @Get('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findProduct(@Param('id') id: string): Promise<Product> {
     return this.productService.findProduct(id);
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findProductByName(@Query('search') search: string): Promise<Product[]> {
     return search
       ? this.productService.findProductByName(search)
@@ -37,14 +36,14 @@ export class ProductsController {
 
   @Post()
   @UseInterceptors(FileInterceptor('photo', storage('products_photo')))
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   create(@Body() product: Product, @UploadedFile() photo): Promise<Product> {
     return this.productService.createProduct(product, photo);
   }
 
   @Put('/:id')
   @UseInterceptors(FileInterceptor('photo', storage('products_photo')))
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   update(
     @Param('id') id: string,
     @Body() product: Product,
@@ -54,7 +53,7 @@ export class ProductsController {
   }
 
   @Delete('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   delete(@Param('id') id: string): Promise<Product> {
     return this.productService.deleteProduct(id);
   }

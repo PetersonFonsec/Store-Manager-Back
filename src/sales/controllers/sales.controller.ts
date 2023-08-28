@@ -18,31 +18,33 @@ export class SalesController {
   constructor(private saleService: SalesService) {}
 
   @Get('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   getSales(@Param('id') id: string): Promise<Sale | Sale[]> {
     return this.saleService.findSaleById(id);
   }
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   getSalesByProduct(@Query('product') id: string): Promise<Sale | Sale[]> {
-    return id ?  this.saleService.findSaleByProduct(id) :  this.saleService.getAllSale();
+    return id
+      ? this.saleService.findSaleByProduct(id)
+      : this.saleService.getAllSale();
   }
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   createSale(@Body() sale: Sale): Promise<Sale> {
     return this.saleService.createSale(sale);
   }
 
   @Put('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   updateSale(@Param('id') id: string, @Body() sale: Sale): Promise<Sale> {
     return this.saleService.updateSale(id, sale);
   }
 
   @Delete('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   delateSale(@Param('id') id: string): Promise<Sale> {
     return this.saleService.deleteSale(id);
   }

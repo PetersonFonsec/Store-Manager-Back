@@ -25,7 +25,7 @@ export class ProvidersController {
   constructor(private providerService: ProvidersService) {}
 
   @Get()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   findProviderByName(@Query('search') search: string): Promise<Provider[]> {
     return search
       ? this.providerService.findProviderByName(search)
@@ -33,13 +33,13 @@ export class ProvidersController {
   }
 
   @Get('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   getProviders(@Param('id') id: string): Promise<Provider> {
     return this.providerService.findProvider(id);
   }
 
   @Post()
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   // @UsePipes(ValidationPipe, CelphoneValidationPipe)
   @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('photo', storage('providers_photo')))
@@ -51,7 +51,7 @@ export class ProvidersController {
   }
 
   @Put('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FileInterceptor('photo', storage('providers_photo')))
   updateProvider(
     @Param('id') id: string,
@@ -62,7 +62,7 @@ export class ProvidersController {
   }
 
   @Delete('/:id')
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   deleteProvider(@Param('id') id: string): Promise<Provider> {
     return this.providerService.removeProvider(id);
   }
