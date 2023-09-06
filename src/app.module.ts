@@ -12,6 +12,10 @@ import { SalesModule } from './sales/sales.module';
 import { ProductsModule } from './products/products.module';
 import { ProvidersModule } from './providers/providers.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggerInterceptor } from './interceptors/logger.interceptor';
+import { WinstonModule } from 'nest-winston';
+import { winstonConfig } from './configs/winston.config';
 
 @Module({
   imports: [
@@ -22,11 +26,18 @@ import { DashboardModule } from './dashboard/dashboard.module';
     SalesModule,
     AuthModule,
     DashboardModule,
+    WinstonModule.forRoot(winstonConfig),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'assets'),
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: LoggerInterceptor,
+    },
+  ],
 })
 export class AppModule {}
