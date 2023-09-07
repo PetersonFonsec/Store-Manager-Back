@@ -51,8 +51,7 @@ export class UsersController {
   @Post()
   @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
-  @UseInterceptors(FileInterceptor('photo', storage('users_photo')))
-  createUser(@Body() user: User, @UploadedFile() photo): Promise<User> {
+  createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
   }
 
