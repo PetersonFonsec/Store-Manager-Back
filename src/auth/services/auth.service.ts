@@ -5,19 +5,31 @@ import {
 } from '@nestjs/common';
 import { Schema } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 import { MailerService } from '@nestjs-modules/mailer';
+import * as bcrypt from 'bcrypt';
 
 import { User } from 'src/users/interfaces/usuarios';
 import { UsersService } from 'src/users/services/users.service';
-import { LogingRequest } from '../interfaces/auth';
+import {
+  ForgetRequest,
+  LogingRequest,
+  RecovertPasswordRequest,
+} from '../interfaces/auth';
 
 @Injectable()
 export class AuthService {
+  private teste = '';
+
   constructor(
+    private configService: ConfigService,
     private userService: UsersService,
     private jwtService: JwtService,
     private mailer: MailerService,
-  ) {}
+  ) {
+    const FRONT_HOST = this.configService.get<string>('FRONT_HOST');
+    this.teste = FRONT_HOST;
+  }
 
   async login(loginParams: LogingRequest): Promise<any> {
     const { email, password } = loginParams;
@@ -44,7 +56,7 @@ export class AuthService {
     const userCreated = await this.userService.findUserByEmail(email);
 
     await this.mailer.sendMail({
-      subject: 'Seja bem vindo !!',
+      subject: `${name} Seja bem vindo !!`,
       template: 'wellcome',
       context: { name },
       to: email,
@@ -53,12 +65,40 @@ export class AuthService {
     return { user: userCreated, access_token };
   }
 
-  private createToken(_id: Schema.Types.ObjectId) {
-    return this.jwtService.sign({ id: _id.toString() });
+  async forget(forgetRequest: ForgetRequest): Promise<any> {
+    const user = await this.userService.findUserByEmail(forgetRequest.email);
+    const TOKEN = this.createToken(user._id);
+    const FRONT_HOST = this.configService.get<string>(
+      'FRONT_HOST',
+      'http://localhost:4200',
+    );
+    const link = `${FRONT_HOST}/signup/forget/${TOKEN}`;
+    await this.mailer.sendMail({
+      subject: `${user.name} Esqueceu sua senha? crie outra !!`,
+      template: 'recovery-password',
+      context: { link, name: user.name },
+      to: forgetRequest.email,
+    });
   }
 
-  //TODO PEGAR OS VALORES DO TOKEN PARA GERAR UM NOVO TOKEN
-  async refresh(): Promise<any> {
-    // return this.createToken()
+  async recovertPassword(
+    token: string,
+    { password }: RecovertPasswordRequest,
+  ): Promise<any> {
+    try {
+      const tokenIsValid = await this.jwtService.verifyAsync(token);
+      if (!tokenIsValid) throw new BadRequestException(`Invalid Token`);
+
+      const userId = this.jwtService.decode(token) as string;
+      console.log(userId);
+
+      return await this.userService.forgetPassword(userId, password);
+    } catch (error) {
+      throw new BadRequestException(`Invalid Token`);
+    }
+  }
+
+  private createToken(_id: Schema.Types.ObjectId) {
+    return this.jwtService.sign({ id: _id.toString() });
   }
 }

@@ -4,19 +4,22 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
+import { RecovertPasswordRequest } from 'src/auth/interfaces/auth';
 import { User } from 'src/users/interfaces/usuarios';
 
 @Injectable()
 export class PasswordValidationPipe implements PipeTransform {
-  transform(value: User, metadata: ArgumentMetadata) {  
+  transform(value: User, metadata: ArgumentMetadata) {
+    const isPassword = metadata.type === 'body';
+    if (!isPassword) return false;
     validatioPassword(value.password);
     return value;
   }
 }
 @Injectable()
 export class PasswordUpdateValidationPipe implements PipeTransform {
-  transform(value: User, metadata: ArgumentMetadata) {  
-    if(typeof value === 'string') return;
+  transform(value: User, metadata: ArgumentMetadata) {
+    if (typeof value === 'string') return;
     validatioPassword(value.password);
     return value;
   }
@@ -47,7 +50,6 @@ function validatioPassword(password: string) {
   ];
 
   validations.forEach(({ validation, mesage }) => {
-    if (!validation.test(password))
-      throw new BadRequestException(mesage);
+    if (!validation.test(password)) throw new BadRequestException(mesage);
   });
 }

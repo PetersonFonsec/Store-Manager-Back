@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
+import { ConfigModule } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { ServeStaticModule } from '@nestjs/serve-static';
@@ -54,6 +56,10 @@ const emailConfig = {
       rootPath: join(__dirname, '..', 'assets'),
     }),
     MailerModule.forRoot(emailConfig),
+    ConfigModule.forRoot({
+      envFilePath: '.development.env',
+      isGlobal: true,
+    }),
   ],
   controllers: [AppController],
   providers: [

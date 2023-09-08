@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   UploadedFile,
-  UseGuards,
+  // UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
@@ -31,25 +31,25 @@ export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Get('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getUser(@Param('id') id: string): Promise<User> {
     return this.userService.findUser(id);
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getAllUser(): Promise<User[]> {
     return this.userService.getAllUser();
   }
 
   @Get('/email/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   getUserByEmail(@Param('id') id: string): Promise<User> {
     return this.userService.findUserByEmail(id);
   }
 
   @Post()
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
   createUser(@Body() user: User): Promise<User> {
     return this.userService.createUser(user);
@@ -57,7 +57,7 @@ export class UsersController {
 
   @Put('/:id')
   @UseInterceptors(FileInterceptor('photo', storage('users_photo')))
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   updateUser(
     @Param('id') id: string,
     @Body() user: User,
@@ -72,7 +72,7 @@ export class UsersController {
     PasswordUpdateValidationPipe,
     ConfirmUpdatePasswordPipe,
   )
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   updatePassword(
     @Param('id') id: string,
     @Body() user: User & { current_password: string },
@@ -81,7 +81,7 @@ export class UsersController {
   }
 
   @Delete('/:id')
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   deleteUser(@Param('id') id: string): Promise<User> {
     return this.userService.deleteUser(id);
   }
