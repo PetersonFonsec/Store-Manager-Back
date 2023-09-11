@@ -10,6 +10,7 @@ export class ForgetRequest {
 export class RecovertPasswordRequest {
   @IsNotEmpty() password: string;
   @IsNotEmpty() confirm_password: string;
+  @IsNotEmpty() token: string;
 }
 
 export class LogingResponse {}

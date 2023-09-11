@@ -27,13 +27,10 @@ export class AuthController {
     return this.authService.forget(email);
   }
 
-  @Post('/recovertPassword/:token')
+  @Post('/recovertPassword/')
   @UsePipes(ValidationPipe, PasswordValidationPipe, ConfirmPasswordPipe)
-  recovertPassword(
-    @Body() recovertPasswordRequest: RecovertPasswordRequest,
-    @Param('token') token: string,
-  ) {
-    return this.authService.recovertPassword(token, recovertPasswordRequest);
+  recovertPassword(@Body() recovertPasswordRequest: RecovertPasswordRequest) {
+    return this.authService.recovertPassword(recovertPasswordRequest);
   }
 
   @Post('/login')

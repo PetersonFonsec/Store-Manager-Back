@@ -81,18 +81,14 @@ export class AuthService {
     });
   }
 
-  async recovertPassword(
-    token: string,
-    { password }: RecovertPasswordRequest,
-  ): Promise<any> {
+  async recovertPassword({
+    password,
+    token,
+  }: RecovertPasswordRequest): Promise<any> {
     try {
-      const tokenIsValid = await this.jwtService.verifyAsync(token);
-      if (!tokenIsValid) throw new BadRequestException(`Invalid Token`);
-
-      const userId = this.jwtService.decode(token) as string;
-      console.log(userId);
-
-      return await this.userService.forgetPassword(userId, password);
+      const userId = await this.jwtService.verifyAsync(token);
+      if (!userId) throw new BadRequestException(`Invalid Token`);
+      return await this.userService.forgetPassword(userId.id, password);
     } catch (error) {
       throw new BadRequestException(`Invalid Token`);
     }
