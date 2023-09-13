@@ -1,0 +1,4058 @@
+{
+	"info": {
+		"_postman_id": "6e057294-2cb6-4009-ae2a-7b3e5700728b",
+		"name": "Store Manager",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4872812"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "create user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/users",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "password is not match",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson2@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"senha123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-2OAIv+zxkHR6VBVYZZSgy+u3pEE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Dec 2021 22:37:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"Passwords do not match\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "invalid password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson2@gmail.com\",\n    \"password\": \"Senha123\",\n    \"confirm_password\": \"senha123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6d-2rauBIrHUsRzeDZGnmtMd82wcfc\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Dec 2021 22:38:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"The password must contain at least one special character\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "mising field",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson2@gmail.com\",\n    \"password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5b-pBE0io8//yA3Iu3LI+ihI9K5GQk\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Dec 2021 22:39:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"confirm_password should not be empty\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "user is already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "112"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"70-uRCxpkI5+K6SmjERkdyOjBgxfDQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 21 Dec 2021 22:56:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"there is already a user with this email: peterson@gmail.com\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "create user success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson2@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "191"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bf-CVQ8wa25+GPQHFN1KUXGYG54WSg\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 12:12:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Peterson\",\n    \"password\": \"Senha123!\",\n    \"email\": \"peterson2@gmail.com\",\n    \"_id\": \"61c467a5638274cd8fb6807b\",\n    \"createdAt\": \"2021-12-23T12:12:22.030Z\",\n    \"updatedAt\": \"2021-12-23T12:12:22.030Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "find user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/users/64d0f221b7c49a252f6a8bc9",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users",
+								"64d0f221b7c49a252f6a8bc9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "find user success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/users/61c467a5638274cd8fb6807b",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users",
+										"61c467a5638274cd8fb6807b"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "191"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bf-t0Euoer0ToSxy/qCtOjxCQYkpsc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 12:12:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c467a5638274cd8fb6807b\",\n    \"name\": \"Peterson\",\n    \"password\": \"Senha123!\",\n    \"email\": \"peterson2@gmail.com\",\n    \"createdAt\": \"2021-12-23T12:12:22.030Z\",\n    \"updatedAt\": \"2021-12-23T12:12:22.030Z\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "user not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/users/iuyghjklkmnb",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users",
+										"iuyghjklkmnb"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "91"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5b-8Y+2Ox3hjegs5Co0PulIcJrUUtU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 12:13:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found the user with id: iuyghjklkmnb\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL_API}}/users",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "get all users success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/users",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "384"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"180-4UkUEb7yM2nDzvGcqVYLhqol3CU\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 12:15:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"61c258bc6ce2a40c47667466\",\n        \"name\": \"Peterson\",\n        \"password\": \"Senha123!\",\n        \"email\": \"peterson@gmail.com\",\n        \"createdAt\": \"2021-12-21T22:44:12.262Z\",\n        \"updatedAt\": \"2021-12-21T22:44:12.262Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"61c467a5638274cd8fb6807b\",\n        \"name\": \"Peterson\",\n        \"password\": \"Senha123!\",\n        \"email\": \"peterson2@gmail.com\",\n        \"createdAt\": \"2021-12-23T12:12:22.030Z\",\n        \"updatedAt\": \"2021-12-23T12:12:22.030Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "update user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\" : \"Pietro\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/users/64d55e1efd0f96ae752abcbe",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users",
+								"64d55e1efd0f96ae752abcbe"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "not found user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\" : \"Pietro\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/users/61c467a5638274cd8fb6807b",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users",
+										"61c467a5638274cd8fb6807b"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-HUnr5r2U2g2PjP976MjEVFxXV/Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 17:10:12 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found the user with id: 61c467a5638274cd8fb6807b\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/users/64fa29b15d00b3ba9e23df8f",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users",
+								"64fa29b15d00b3ba9e23df8f"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "peterson@gmail.com",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete user success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/users/61c467a5638274cd8fb6807b",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users",
+										"61c467a5638274cd8fb6807b"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "peterson@gmail.com",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "189"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"bd-J4FgBZL8dqtSV0gd5QtfG3h//ac\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 12:20:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c467a5638274cd8fb6807b\",\n    \"name\": \"Pietro\",\n    \"password\": \"Senha123!\",\n    \"email\": \"peterson2@gmail.com\",\n    \"createdAt\": \"2021-12-23T12:12:22.030Z\",\n    \"updatedAt\": \"2021-12-23T12:17:18.632Z\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "not found user",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/users/61c258bc6ce2a40c47667466",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"users",
+										"61c258bc6ce2a40c47667466"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "peterson@gmail.com",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-mqU5Y7bJ/hzCXl0I4TfGdtLii20\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 17:16:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found the user with id: 61c258bc6ce2a40c47667466\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "find by email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/users/email/peterson@gmail.com",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users",
+								"email",
+								"peterson@gmail.com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"peterson@gmail.com\",\r\n    \"confirm_password\": \"Senha123!\",\r\n    \"current_password\": \"Senha1234!\",\r\n    \"password\": \"Senha123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/users/updatePassword/64dd89d690e60c8581cfd0ce",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"users",
+								"updatePassword",
+								"64dd89d690e60c8581cfd0ce"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get all products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZjhlZDA4NDc4Mjg2MmZiNGJhZTM5NiIsImlhdCI6MTY5NDAzNTIwOCwiZXhwIjoxNjk0MDM1MjY4fQ.4XO9EV-l1hxW-BUeLRcLufchCXlA2SrCZs70bM85CMQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}products",
+							"host": [
+								"{{URL_API}}products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success return empty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 01:55:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/products/61de0adeaaa10a2b89230ade",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"products",
+								"61de0adeaaa10a2b89230ade"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Product not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230bcd",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230bcd"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-LPK9bzLLFddRyZ11SoHP0M+8bbc\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:05:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found product with id: 61de0ad7aaa10a2b89230bcd\",\n    \"error\": \"Not Found\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230adc",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230adc"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e2-QjeCd64C1K0HbzEl8IEjF1JTgIE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:07:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61de0ad7aaa10a2b89230adc\",\n    \"name\": \"Bala juquinha\",\n    \"description\": \"Bala de gente velha\",\n    \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n    \"createdAt\": \"2022-01-11T22:55:19.326Z\",\n    \"updatedAt\": \"2022-01-11T22:55:19.326Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Products By Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}products?search=Bala 7",
+							"host": [
+								"{{URL_API}}products"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Bala 7"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Product not found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230bcd",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230bcd"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-LPK9bzLLFddRyZ11SoHP0M+8bbc\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:05:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found product with id: 61de0ad7aaa10a2b89230bcd\",\n    \"error\": \"Not Found\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230adc",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230adc"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e2-QjeCd64C1K0HbzEl8IEjF1JTgIE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:07:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61de0ad7aaa10a2b89230adc\",\n    \"name\": \"Bala juquinha\",\n    \"description\": \"Bala de gente velha\",\n    \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n    \"createdAt\": \"2022-01-11T22:55:19.326Z\",\n    \"updatedAt\": \"2022-01-11T22:55:19.326Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Bala 7 3",
+									"type": "text"
+								},
+								{
+									"key": "price_buy",
+									"value": "0.05",
+									"type": "text"
+								},
+								{
+									"key": "price_sale",
+									"value": "0.1",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Bala de gente velha",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/petersonfonsecasimiao/Downloads/avaatar.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL_API}}products",
+							"host": [
+								"{{URL_API}}products"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "product is already exist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Bala juquinha\",\n  \"price_buy\": 0.05,\n  \"price_sale\": 0.10,\n  \"description\": \"Bala de gente velha\",\n  \"photo\": \"https://dummyimage.com/60x60/000/fff\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/products",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "109"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"6d-e7N3mmZ7ZK++DcfPxNnogIpNLoA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:15:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"there is already a product with this name: Bala juquinha\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"Bala juquinha 2\",\n  \"price_buy\": 0.05,\n  \"price_sale\": 0.10,\n  \"description\": \"Bala de gente velha\",\n  \"photo\": \"https://dummyimage.com/60x60/000/fff\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/products",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "262"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"106-YBwOCkZGGvJS3IrIhOGYePVoRMQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:17:03 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Bala juquinha 2\",\n    \"price_buy\": 0.05,\n    \"price_sale\": 0.1,\n    \"description\": \"Bala de gente velha\",\n    \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n    \"_id\": \"61de0fefd27ba188ad0661d3\",\n    \"createdAt\": \"2022-01-11T23:17:03.166Z\",\n    \"updatedAt\": \"2022-01-11T23:17:03.166Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/products/64d82be3eb22aeb6315fad13",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"products",
+								"64d82be3eb22aeb6315fad13"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230adc",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230adc"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "226"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e2-QjeCd64C1K0HbzEl8IEjF1JTgIE\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:09:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61de0ad7aaa10a2b89230adc\",\n    \"name\": \"Bala juquinha\",\n    \"description\": \"Bala de gente velha\",\n    \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n    \"createdAt\": \"2022-01-11T22:55:19.326Z\",\n    \"updatedAt\": \"2022-01-11T22:55:19.326Z\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "Product not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products/61de0ad7aaa10a2b89230adc",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0ad7aaa10a2b89230adc"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "102"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"66-OBjjCggNl6E9fRDVxHP18ra4pS4\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:09:33 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found product with id: 61de0ad7aaa10a2b89230adc\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"DESCRIÇÃO ALTERADA\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/products/61de0adeaaa10a2b89230ade",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"products",
+								"61de0adeaaa10a2b89230ade"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Product not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n     \"description\": \"DESCRIÇÃO ALTERADA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers/61de0adeaaa10a2b89230ade",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61de0adeaaa10a2b89230ade"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-uzsBZOxKc5SQ9/kcVirkvS4y5ZY\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:11:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found provider with id: 61de0adeaaa10a2b89230ade\",\n    \"error\": \"Not Found\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"DESCRIÇÃO ALTERADA\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/products/61de0adeaaa10a2b89230ade",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products",
+										"61de0adeaaa10a2b89230ade"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "260"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"104-I7U1IEY38RtlaYoumNF1gTpNwvA\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 23:28:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61de0adeaaa10a2b89230ade\",\n    \"name\": \"Bala juquinha\",\n    \"price_buy\": 0.05,\n    \"price_sale\": 0.1,\n    \"description\": \"Bala de gente velha\",\n    \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n    \"createdAt\": \"2022-01-11T22:55:26.774Z\",\n    \"updatedAt\": \"2022-01-11T22:55:26.774Z\",\n    \"__v\": 0\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Providers",
+			"item": [
+				{
+					"name": "get all providers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/providers",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"providers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success return empty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:08:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						}
+					]
+				},
+				{
+					"name": "create provider",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Coca cola",
+									"type": "text"
+								},
+								{
+									"key": "celphone",
+									"value": "11977288479",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "coca@contato.com.br",
+									"type": "text"
+								},
+								{
+									"key": "representative",
+									"value": "giula",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/Users/petersonfonsecasimiao/Downloads/avatar.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL_API}}providers",
+							"host": [
+								"{{URL_API}}providers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "missing field",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Coca cola\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "83"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"53-TyteQMmVPzU9gM+if7B6ThUE1is\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:50:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"celphone should not be empty\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "email invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Coca cola\",\n    \"celphone\": \"wq wqqw\",\n    \"email\": \"cocacontatocombr\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-jYTTf+uHDpur+UVxEWx/0ijBEQ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:51:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"email must be an email\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "phone invalid",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Coca cola\",\n    \"celphone\": \"wqwqqw\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "114"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"72-e1LcipKcPWGEeztjR8yEavnBIUE\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:52:22 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"Celphone: wqwqqw is invalid format the correct is only digits\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "create provider success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Coca cola\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"af-AXdJ+imSfk9fTc85P7xTaVt19z0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:54:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Coca cola\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\",\n    \"_id\": \"61c4a9aee5bc1e510ec5321f\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "email already excist",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Coca cola\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "117"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"75-qP7ggRP0ddL/yzG/wwVLG4Bw6JA\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 17:09:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"there is already a provider with this email: coca@contato.com.br\",\n    \"error\": \"Bad Request\"\n}"
+						}
+					]
+				},
+				{
+					"name": "find provider by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"providers",
+								"61c4a9aee5bc1e510ec5321f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4a9aee5bc1e510ec5321f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"af-Wfhmk+R7ewHKOyJOsRThHBuu4zY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:58:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c4a9aee5bc1e510ec5321f\",\n    \"name\": \"Coca cola\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "not found provider",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4a9aee5bc1e510ec5321f"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-RWfcxxZXnHf3bi4ItYj1ogPaOkk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 17:18:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found provider with id: 61c4a9aee5bc1e510ec5321f\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "find provider by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"providers",
+								"61c4a9aee5bc1e510ec5321f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4a9aee5bc1e510ec5321f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "175"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"af-Wfhmk+R7ewHKOyJOsRThHBuu4zY\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 16:58:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c4a9aee5bc1e510ec5321f\",\n    \"name\": \"Coca cola\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "not found provider",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4a9aee5bc1e510ec5321f",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4a9aee5bc1e510ec5321f"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-RWfcxxZXnHf3bi4ItYj1ogPaOkk\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 17:18:40 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found provider with id: 61c4a9aee5bc1e510ec5321f\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update provider",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"coca2@contato.com.br\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/providers/61c4ac73e8e356dae7462edf",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"providers",
+								"61c4ac73e8e356dae7462edf"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "provider not found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Fanta\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4ac73eaa8e356dae7462edf",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4ac73eaa8e356dae7462edf"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"69-WUvftdpRHY3CLrbzv0rbR9LDFBo\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 18:48:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found provider with id: 61c4ac73eaa8e356dae7462edf\",\n    \"error\": \"Not Found\"\n}"
+						},
+						{
+							"name": "update provider success",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"coca2@contato.com.br\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4ac73e8e356dae7462edf",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4ac73e8e356dae7462edf"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "171"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ab-NUDIDxVCWYIbVREm7PoGti1uTic\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 23 Dec 2021 18:50:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c4ac73e8e356dae7462edf\",\n    \"name\": \"Fanta\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\",\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "remove provider",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/providers/61c4ac73e8e356dae7462edf",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"providers",
+								"61c4ac73e8e356dae7462edf"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "delete with sucess",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4ac73e8e356dae7462edf",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4ac73e8e356dae7462edf"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "172"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ac-YzX/QAxTQe4Um+UXdG9Ew9yJY+w\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 22:45:32 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"61c4ac73e8e356dae7462edf\",\n    \"name\": \"Fanta\",\n    \"celphone\": \"11977288479\",\n    \"email\": \"coca2@contato.com.br\",\n    \"representative\": \"giula\",\n    \"photo\": \"dspfsmpofmasdfpamsd.png\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "Provider is not found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/providers/61c4ac73e8e356dae7462edf",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"providers",
+										"61c4ac73e8e356dae7462edf"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"67-h7LBOcmo3/ShgF6H0F4yykDvU7A\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 11 Jan 2022 22:45:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found provider with id: 61c4ac73e8e356dae7462edf\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// pm.globals.set(\"TOKEN\", `Bearer ${jsonData.access_token}`);",
+									"// pm.globals.set(\"TOKEN\", `tests`);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha1234!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/login",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Login - error",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"peterson@gmail.com\",\n    \"password\": \"Senha1234!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/login",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "78"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4e-y2TXZkUzN06GCA79ADQqfBNTgFw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Feb 2022 01:06:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Email or password incorrect\",\n    \"error\": \"Not Found\"\n}"
+						},
+						{
+							"name": "Login - success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/login",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "474"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1da-I0evg0GFtgFaxr7aZbQ5E94zf8k\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 10 Aug 2023 22:15:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"user\": {\n        \"_id\": \"64d55ed25e4cd549da80e99f\",\n        \"name\": \"Peterson\",\n        \"password\": \"$2b$08$Gc7bbFAtrNnEF6iyi4aHVuBvN0vKlXwCXL6zemVwyVT0v/R3i.udO\",\n        \"photo\": \"/images/userDefault.png\",\n        \"email\": \"peterson1@gmail.com\",\n        \"createdAt\": \"2023-08-10T22:04:02.280Z\",\n        \"updatedAt\": \"2023-08-10T22:04:02.280Z\",\n        \"__v\": 0\n    },\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZDU1ZWQyNWU0Y2Q1NDlkYTgwZTk5ZiIsImlhdCI6MTY5MTcwNTc0NCwiZXhwIjoxNjkxNzA1ODA0fQ.oG7ts89k41HQ7cuaQAcMSS-KOMOcJ8XtpZ2Gh8GGPb0\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/auth/logout",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/auth/refresh",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha1234!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/signup",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Signup - success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/signup",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "238"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"ee-u+9BOAozQZDiXmbazGcwH2F4aFk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Feb 2022 01:04:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\",\n    \"access_token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZmRjZDM2NmRmMDA0OWU3YWNmYjBmYiIsImlhdCI6MTY0NDAyMzA5NCwiZXhwIjoxNjQ0MDIzMTU0fQ.k8YGsw0BTa80S9q_IXfH_87DJ39J1ULBN9ogsXK_qbU\"\n}"
+						},
+						{
+							"name": "Signup - already a user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha123!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/signup",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"71-BbHMU3edf8UaSYuPxOB6MHLZYes\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Feb 2022 01:05:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"there is already a user with this email: peterson1@gmail.com\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "Signup - Passwords do not match",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\",\n    \"password\": \"Senha123!\",\n    \"confirm_password\": \"Senha1233!\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/signup",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-2OAIv+zxkHR6VBVYZZSgy+u3pEE\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Feb 2022 01:05:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": \"Passwords do not match\",\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "Signup - missing requireds fields",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Peterson\",\n    \"email\": \"peterson1@gmail.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/signup",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"signup"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"7a-4ZGlcH0siLkg6L1tlCl3g0FvNro\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 05 Feb 2022 01:05:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"password should not be empty\",\n        \"confirm_password should not be empty\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						}
+					]
+				},
+				{
+					"name": "forget",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"peterson1@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/forget",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"forget"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/forget",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"forget"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-jYTTf+uHDpur+UVxEWx/0ijBEQ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 07 Sep 2023 21:06:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"email must be an email\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "user not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"peterson@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/forget",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"forget"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64-Um74GFUqJw0onl2xOk0O57QxFFs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 07 Sep 2023 21:09:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found the user with email: peterson@gmail.com\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				},
+				{
+					"name": "forget Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"Senha1234!\",\r\n    \"confirm_password\": \"Senha1234!\",\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0ZmE0MTMwYWFkYzg5MGNiM2EyZGYyMSIsImlhdCI6MTY5NDM3MDIxMSwiZXhwIjoxNjk0MzczODExfQ.D3VK7nCyGec5Jq4EylUm2eVgf-C4V_WHGlG2f-hkMfA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/auth/recovertPassword/",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"auth",
+								"recovertPassword",
+								""
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/forget",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"forget"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-jYTTf+uHDpur+UVxEWx/0ijBEQ0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 07 Sep 2023 21:06:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 400,\n    \"message\": [\n        \"email must be an email\"\n    ],\n    \"error\": \"Bad Request\"\n}"
+						},
+						{
+							"name": "user not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"peterson@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/auth/forget",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"auth",
+										"forget"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "100"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"64-Um74GFUqJw0onl2xOk0O57QxFFs\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 07 Sep 2023 21:09:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"statusCode\": 404,\n    \"message\": \"Not found the user with email: peterson@gmail.com\",\n    \"error\": \"Not Found\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Salles",
+			"item": [
+				{
+					"name": "get all salles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/sales",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"sales"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success return empty",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/products",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"products"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 27 Dec 2021 01:55:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						},
+						{
+							"name": "Success with product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/sales",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"sales"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "432"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b0-2TKHaSfsM3phQjrqohNG6r3rHxw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Mar 2022 16:00:57 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"624089a431118c6daa0f43e7\",\n        \"product\": {\n            \"_id\": \"6240899731118c6daa0f43e4\",\n            \"name\": \"Bala 7 belo\",\n            \"price_buy\": 0.05,\n            \"price_sale\": 0.1,\n            \"description\": \"Bala de gente velha\",\n            \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n            \"createdAt\": \"2022-03-27T15:58:15.949Z\",\n            \"updatedAt\": \"2022-03-27T15:58:15.949Z\",\n            \"__v\": 0\n        },\n        \"quantity\": 3,\n        \"price\": 0.30000000000000004,\n        \"createdAt\": \"2022-03-27T15:58:28.163Z\",\n        \"updatedAt\": \"2022-03-27T15:58:28.163Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Create Sale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product\" : \"6240899731118c6daa0f43e4\",\n    \"quantity\" : 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL_API}}/sales",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"sales"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create Sale success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"product_id\" : \"624082976ab979d85f5b4486\",\n    \"quantity\" : 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/sales",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"sales"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "201"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c9-8iCZWrIvVkTselSBJu7Ln2/iSmU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Mar 2022 15:31:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"product_id\": \"624082976ab979d85f5b4486\",\n    \"quantity\": 3,\n    \"price\": 0.30000000000000004,\n    \"_id\": \"624083637f91e1d62ff804f0\",\n    \"createdAt\": \"2022-03-27T15:31:47.720Z\",\n    \"updatedAt\": \"2022-03-27T15:31:47.720Z\",\n    \"__v\": 0\n}"
+						},
+						{
+							"name": "Error product not found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"product_id\" : \"624082976ab979d85f5b4123\",\n    \"quantity\" : 3\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL_API}}/sales",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"sales"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "219"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"db-aL1IaBcBMxsiWRjRpc+UjDGg4f0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Mar 2022 15:32:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"response\": {\n        \"statusCode\": 404,\n        \"message\": \"Not found product with id: 624082976ab979d85f5b4123\",\n        \"error\": \"Not Found\"\n    },\n    \"status\": 404,\n    \"message\": \"Not found product with id: 624082976ab979d85f5b4123\",\n    \"name\": \"NotFoundException\"\n}"
+						}
+					]
+				},
+				{
+					"name": "find salles by product id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/sales?product=64d8014413cbfb913dfabbf5",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"sales"
+							],
+							"query": [
+								{
+									"key": "product",
+									"value": "64d8014413cbfb913dfabbf5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success nothing salles with this product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/sales?product=62407b88075f0483b830f123",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"sales"
+									],
+									"query": [
+										{
+											"key": "product",
+											"value": "62407b88075f0483b830f123"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Mar 2022 15:34:06 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[]"
+						},
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL_API}}/sales?product=62407b88075f0483b830f4e7",
+									"host": [
+										"{{URL_API}}"
+									],
+									"path": [
+										"sales"
+									],
+									"query": [
+										{
+											"key": "product",
+											"value": "62407b88075f0483b830f4e7"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "432"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1b0-2TKHaSfsM3phQjrqohNG6r3rHxw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 27 Mar 2022 16:01:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"624089a431118c6daa0f43e7\",\n        \"product\": {\n            \"_id\": \"6240899731118c6daa0f43e4\",\n            \"name\": \"Bala 7 belo\",\n            \"price_buy\": 0.05,\n            \"price_sale\": 0.1,\n            \"description\": \"Bala de gente velha\",\n            \"photo\": \"https://dummyimage.com/60x60/000/fff\",\n            \"createdAt\": \"2022-03-27T15:58:15.949Z\",\n            \"updatedAt\": \"2022-03-27T15:58:15.949Z\",\n            \"__v\": 0\n        },\n        \"quantity\": 3,\n        \"price\": 0.30000000000000004,\n        \"createdAt\": \"2022-03-27T15:58:28.163Z\",\n        \"updatedAt\": \"2022-03-27T15:58:28.163Z\",\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Delete salle",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}/sales/64d82be3eb22aeb6315fad13",
+							"host": [
+								"{{URL_API}}"
+							],
+							"path": [
+								"sales",
+								"64d82be3eb22aeb6315fad13"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard",
+			"item": [
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL_API}}dashboard",
+							"host": [
+								"{{URL_API}}dashboard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL_API",
+			"value": "http://localhost:3000/"
+		},
+		{
+			"key": "TOKEN",
+			"value": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNDA5MzI0ZDdlYWFiZjBiMDJmZGQxZiIsImlhdCI6MTY0ODQwMDYyOSwiZXhwIjoxNjQ4NDAwNjg5fQ.lwN3n5ycdqRjEOK5y1_8DIdwCEgxDZb5egGbB952bx0\""
+		}
+	]
+}
