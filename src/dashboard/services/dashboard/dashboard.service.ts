@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { IDashboard } from 'src/dashboard/interfaces/dashboard.interface';
-import { Product } from 'src/products/interfaces/products';
-import { ProductsService } from 'src/products/services/products.service';
-import { ProvidersService } from 'src/providers/services/providers.service';
-import { Sale, Salle } from 'src/sales/interfaces/sale';
-import { SalesService } from 'src/sales/services/sales.service';
+import { IDashboard } from './../../../dashboard/interfaces/dashboard.interface';
+import { Product } from './../../../products/interfaces/products';
+import { ProductsService } from './../../../products/services/products.service';
+import { ProvidersService } from './../../../providers/services/providers.service';
+import { Sale, Salle } from './../../../sales/interfaces/sale';
+import { SalesService } from './../../../sales/services/sales.service';
 
 @Injectable()
 export class DashboardService {

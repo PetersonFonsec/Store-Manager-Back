@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ProductsModule } from 'src/products/products.module';
-import { ProvidersModule } from 'src/providers/providers.module';
-import { SalesModule } from 'src/sales/sales.module';
+import { ProductsModule } from './../products/products.module';
+import { ProvidersModule } from './../providers/providers.module';
+import { SalesModule } from './../sales/sales.module';
 import { DashboardController } from './controllers/dashboard/dashboard.controller';
 import { DashboardService } from './services/dashboard/dashboard.service';
 

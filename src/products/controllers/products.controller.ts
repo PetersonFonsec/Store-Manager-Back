@@ -12,8 +12,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { storage } from 'src/utils/storage';
+import { JwtAuthGuard } from './../../auth/guards/jwt-auth.guard';
+import { storage } from './../../utils/storage';
 import { Product } from '../interfaces/products';
 import { ProductsService } from '../services/products.service';
 @Controller('products')

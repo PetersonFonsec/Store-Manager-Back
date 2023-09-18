@@ -15,10 +15,10 @@ import {
 } from '@nestjs/common';
 import { ProvidersService } from '../services/providers.service';
 import { Provider } from '../interfaces/provider';
-import { CelphoneValidationPipe } from 'src/providers/pipes/celphone-validation.pipe';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { CelphoneValidationPipe } from './../../providers/pipes/celphone-validation.pipe';
+import { JwtAuthGuard } from './../../auth/guards/jwt-auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { storage } from 'src/utils/storage';
+import { storage } from './../../utils/storage';
 
 @Controller('providers')
 export class ProvidersController {

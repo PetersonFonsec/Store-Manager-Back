@@ -6,7 +6,7 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Sale } from '../interfaces/sale';
-import { ProductsService } from 'src/products/services/products.service';
+import { ProductsService } from './../../products/services/products.service';
 
 @Injectable()
 export class SalesService {

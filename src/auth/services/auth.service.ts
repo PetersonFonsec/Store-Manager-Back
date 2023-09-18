@@ -7,15 +7,15 @@ import { Schema } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { MailerService } from '@nestjs-modules/mailer';
-import * as bcrypt from 'bcrypt';
 
-import { User } from 'src/users/interfaces/usuarios';
-import { UsersService } from 'src/users/services/users.service';
 import {
   ForgetRequest,
   LogingRequest,
   RecovertPasswordRequest,
 } from '../interfaces/auth';
+
+import { UsersService } from './../../users/services/users.service';
+import { User } from './../../users/interfaces/usuarios';
 
 @Injectable()
 export class AuthService {
